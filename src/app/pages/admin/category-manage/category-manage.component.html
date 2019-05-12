@@ -1,0 +1,73 @@
+<app-admin-title titleName="分类管理"></app-admin-title>
+<div class="container">
+  <div class="operate">
+    <span class="operate_title">操作分类：</span>
+    <button
+      nz-button
+      nzType="primary"
+      class="item_gap"
+      (click)="toggleModal(modalType.addCategory)"
+    >
+      添加分类
+    </button>
+  </div>
+  <div class="list">
+    <div class="table_title">分类列表</div>
+    <nz-table #basicTable [nzData]="categoryList$ | async" [nzShowPagination]="false">
+      <thead>
+        <tr>
+          <th>分类ID</th>
+          <th>分类名称</th>
+          <th>创建时间</th>
+          <th>更新时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.id }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.createTime | date: 'yyyy-MM-dd: HH:mm:ss' }}</td>
+          <td>{{ data.updateTime | date: 'yyyy-MM-dd: HH:mm:ss'}}</td>
+          <td>
+            <a (click)="toggleModal(modalType.editCategory, data)">编辑</a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              nz-popconfirm
+              nzTitle="确定删除此分类吗？"
+              nzOkType="danger"
+              (nzOnConfirm)="handleDeleteCategory(data.id)"
+            >
+              删除
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+<nz-modal
+  [(nzVisible)]="modalStatus"
+  [nzTitle]="modalTitle"
+  nzOkText="保存"
+  nzClosable="false"
+  [nzOkDisabled]="categoryForm.invalid"
+  (nzOnCancel)="toggleModal()"
+  (nzOnOk)="handleOperateCategory()"
+>
+  <form nz-form #categoryForm="ngForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired nzFor="category_name">分类名称</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input
+          id="category_name"
+          nz-input
+          [(ngModel)]="categoryName"
+          name="account"
+          placeholder="请输入分类名称"
+          required
+        />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

@@ -1,0 +1,14 @@
+<ul nz-menu [nzMode]="'inline'" class="menu_list">
+  <li
+    *ngFor="let menu of menuConfig; trackBy: trackByMenu"
+    nz-menu-item
+    [nzSelected]="currentUrl === menu.url"
+    (click)="handleClickMenu(menu.url)"
+  >
+    <span title>
+      <i nz-icon [type]="menu.icon"></i>
+      <span>{{ menu.name }}</span>
+    </span>
+  </li>
+  <li class="copyright">Copyright &copy; liandao</li>
+</ul>

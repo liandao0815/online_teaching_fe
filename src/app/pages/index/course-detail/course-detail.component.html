@@ -1,0 +1,97 @@
+<div class="container" *ngIf="courseDetail">
+  <div class="course">
+    <video
+      class="course_video"
+      controls
+      controlsList="nodownload"
+      disablePictureInPicture
+      [poster]="courseDetail.poster"
+    >
+      <source [src]="courseDetail.link" type="video/mp4" />
+      <source [src]="courseDetail.link" type="video/webm" />
+      <source [src]="courseDetail.link" type="video/ogg" />
+      <p>提示：对不起，您的浏览器不支持Video标签。</p>
+    </video>
+    <div class="course_banner">
+      <div class="title">课程信息</div>
+      <ul class="info">
+        <li>
+          <span>课程名称：</span>
+          <span>{{ courseDetail.name }}</span>
+        </li>
+        <li>
+          <span>课程作者：</span>
+          <span>{{ courseDetail.author }}</span>
+        </li>
+        <li>
+          <span>发布时间：</span>
+          <span>{{ courseDetail.createTime | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        </li>
+        <li>
+          <span>课程分类：</span>
+          <span>{{ courseDetail.categoryName }}</span>
+        </li>
+        <li>
+          <span>课程介绍：</span>
+          <span>{{ courseDetail.introduction }}</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="evalution">
+    <div class="title">课程评价</div>
+    <div class="info">
+      <span>
+        当前评价（{{ evaluationList.length }}人评价）
+        <nz-rate [ngModel]="evaluationAvgScore" nzAllowHalf nzDisabled></nz-rate>&nbsp;
+        {{ evaluationAvgScore | number: '1.1-1'}}分
+      </span>
+      <span class="evalution_btn" (click)="toggleModalStatus()">我要评价</span>
+    </div>
+    <ul class="list" *ngIf="evaluationList.length">
+      <li class="item" *ngFor="let evaluation of evaluationList">
+        <div class="item_info">
+          <span>
+            <i nz-icon type="user" theme="outline"></i>&nbsp;{{ evaluation.author }}&nbsp;&nbsp;
+            <nz-rate [ngModel]="evaluation.score" nzAllowHalf nzDisabled></nz-rate>
+          </span>
+          <span>{{ evaluation.createTime | timesToNow }}</span>
+        </div>
+        <div class="item_content">
+          {{ evaluation.content || '这是一条没有内容的评价' }}
+        </div>
+      </li>
+    </ul>
+    <div class="tips" *ngIf="!evaluationList.length">暂无评价，要不你来评价一下吧~</div>
+  </div>
+</div>
+<nz-spin *ngIf="loading" nzSimple class="spin" [nzSize]="'large'"></nz-spin>
+<nz-modal
+  [(nzVisible)]="evalutionModalStatus"
+  nzTitle="评价课程"
+  [nzClosable]="false"
+  nzOkText="评价"
+  [nzWidth]="440"
+  (nzOnCancel)="toggleModalStatus()"
+  (nzOnOk)="handleSubmitCourseEvaluation()"
+>
+  <form class="evalution_form">
+    <div>
+      <span>
+        评价分数: &nbsp;&nbsp;
+        <nz-rate [(ngModel)]="evalutionForm.score" name="score" nzAllowHalf></nz-rate>
+      </span>
+    </div>
+    <div>
+      <span>评价内容：&nbsp;&nbsp;</span>
+      <textarea
+        rows="2"
+        name="content"
+        nz-input
+        [(ngModel)]="evalutionForm.content"
+        placeholder="请输入评价内容"
+        style="resize: none; width: 250px;"
+      ></textarea>
+    </div>
+  </form>
+</nz-modal>

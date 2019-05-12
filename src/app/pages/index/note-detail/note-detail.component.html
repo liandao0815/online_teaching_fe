@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="header">
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a routerLink="/home"><i nz-icon type="home"></i></a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a routerLink="/note">笔记</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        笔记详情
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </div>
+  <div class="note" *ngIf="noteDetail">
+    <div class="note_header">
+      <span class="info">
+        <span>{{ noteDetail.author }}</span>
+        <span class="desc">
+          {{ noteDetail.createTime | timesToNow }}&nbsp;&nbsp;&nbsp; 阅读&nbsp;
+          {{ noteDetail.readCount }} &nbsp;&nbsp;&nbsp;
+          <nz-tag nzColor="volcano">{{ noteDetail.categoryName }}</nz-tag>
+        </span>
+      </span>
+      <span>
+        <i
+          *ngIf="!noteDetail.collectId; else noteCollectIconTpl"
+          class="icon"
+          nz-icon
+          type="star"
+          theme="fill"
+          nz-tooltip
+          nzTitle="收藏"
+          (click)="requestCollectNote(noteDetail.id)"
+        ></i>
+        <ng-template #noteCollectIconTpl>
+          <i
+            class="active icon"
+            nz-icon
+            type="star"
+            theme="fill"
+            nz-tooltip
+            nzTitle="取消收藏"
+            (click)="cancelCollectNote(noteDetail.collectId)"
+          ></i>
+        </ng-template>
+      </span>
+    </div>
+    <h2 class="note_title">{{ noteDetail.title }}</h2>
+    <div class="note_content ql-snow">
+      <div
+        class="ql-editor"
+        [innerHTML]="noteDetail.content"
+        style="padding: 0;line-height: 2;border: 0;"
+      ></div>
+    </div>
+    <div class="note_comment">
+      <div class="comment_title">笔记评论</div>
+      <div class="comment_form">
+        <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+          <input
+            [(ngModel)]="commentContent"
+            nz-input
+            placeholder="评论笔记"
+            (mouseenter)="$event.target.focus()"
+            (keyup)="$event.keyCode === 13 && handleCommentNote()"
+          />
+        </nz-input-group>
+        <ng-template #suffixButton>
+          <button
+            nz-button
+            nzType="primary"
+            [disabled]="!commentContent"
+            nzSearch
+            (click)="handleCommentNote()"
+          >
+            评论
+          </button>
+        </ng-template>
+      </div>
+      <nz-list
+        *ngIf="commentList?.length; else notCommentTpl"
+        [nzDataSource]="commentList"
+        [nzRenderItem]="item"
+        [nzItemLayout]="'horizontal'"
+      >
+        <ng-template #item let-item>
+          <nz-comment [nzAuthor]="item.author" [nzDatetime]="item.createTime | timesToNow">
+            <nz-comment-content>
+              <p>{{ item.content }}</p>
+            </nz-comment-content>
+          </nz-comment>
+        </ng-template>
+      </nz-list>
+      <ng-template #notCommentTpl>
+        <div class="commnet_tips">暂无评论，要不抢个沙发吧~</div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="skeleton" *ngIf="!noteDetail">
+    <nz-skeleton [nzActive]="true"></nz-skeleton>
+    <nz-skeleton [nzActive]="true"></nz-skeleton>
+    <nz-skeleton [nzActive]="true"></nz-skeleton>
+  </div>
+</div>

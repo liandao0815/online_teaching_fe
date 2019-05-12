@@ -1,0 +1,44 @@
+<app-admin-title titleName="修改信息"></app-admin-title>
+<div class="container">
+  <div class="form">
+    <div class="left">
+      <div class="form_item">
+        <label for="account">用户账号：</label>
+        <input id="account" type="text" nz-input [(ngModel)]="editForm.account" />
+      </div>
+      <div class="form_item">
+        <label for="username">用户名称：</label>
+        <input id="username" type="text" nz-input [(ngModel)]="editForm.username" />
+      </div>
+      <div class="form_item">
+        <label for="password">账号密码：</label>
+        <input
+          id="password"
+          type="password"
+          [(ngModel)]="password"
+          nz-input
+          placeholder="请输入您要修改的密码"
+        />
+      </div>
+    </div>
+    <div class="right">
+      <label>用户头像：</label>
+      <div class="avatar_container">
+        <input
+          type="file"
+          class="file_input"
+          title="点击选择"
+          #fileInput
+          (change)="handleAvatarFileChange(fileInput.files[0])"
+        />
+        <img *ngIf="avatarLocalUrl; else avatarTpl" [src]="avatarLocalUrl" class="avatar" />
+        <ng-template #avatarTpl>
+          <nz-avatar nzShape="square" [nzSize]="180" nzIcon="user"></nz-avatar>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="button">
+    <button nz-button nzType="primary" (click)="handleUpdateUserInfo()">提交</button>
+  </div>
+</div>

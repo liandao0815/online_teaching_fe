@@ -1,0 +1,19 @@
+@import 'mixins';
+
+.container {
+  .filter {
+    @include admin-filter-style;
+  }
+  .list {
+    .table_title {
+      @include table-title-style;
+    }
+  }
+}
+
+::ng-deep {
+  .ant-calendar-picker,
+  .ant-calendar-picker-container {
+    width: 200px;
+  }
+}

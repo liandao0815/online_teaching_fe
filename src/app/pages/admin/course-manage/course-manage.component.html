@@ -1,0 +1,93 @@
+<app-admin-title titleName="课程管理"></app-admin-title>
+<div class="container">
+  <div class="filter">
+    <span class="filter_title">查询课程：</span>
+    <form class="filter_form">
+      <input
+        class="item_gap form_item"
+        [(ngModel)]="courseQueryForm.id"
+        nz-input
+        name="id"
+        type="number"
+        placeholder="课程ID"
+      />
+      <input
+        class="item_gap form_item"
+        [(ngModel)]="courseQueryForm.name"
+        nz-input
+        name="name"
+        placeholder="课程名称"
+      />
+      <nz-select
+        [(ngModel)]="courseQueryForm.priority"
+        name="priority"
+        nzAllowClear
+        nzPlaceHolder="优先级"
+        class="item_gap form_item"
+      >
+        <nz-option nzValue="1" nzLabel="推荐"></nz-option>
+        <nz-option nzValue="0" nzLabel="普通"></nz-option>
+      </nz-select>
+      <button nz-button nzType="primary" (click)="searchCourseData(1)">
+        <i nz-icon type="search"></i>查询
+      </button>
+    </form>
+  </div>
+  <div class="list">
+    <div class="table_title">课程列表</div>
+    <nz-table
+      #basicTable
+      [nzFrontPagination]="false"
+      [nzData]="courseTableInfo.data"
+      [nzLoading]="courseTableInfo.loading"
+      [nzTotal]="courseTableInfo.total"
+      [(nzPageIndex)]="courseTableInfo.pageNum"
+      [(nzPageSize)]="courseTableInfo.pageSize"
+      (nzPageIndexChange)="searchCourseData()"
+    >
+      <thead>
+        <tr>
+          <th>课程ID</th>
+          <th nzWidth="200px">课程名称</th>
+          <th>上传用户</th>
+          <th>分类名称</th>
+          <th>优先级</th>
+          <th>创建时间</th>
+          <th>更新时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.id }}</td>
+          <td>{{ data.name }}</td>
+          <td>{{ data.author }}</td>
+          <td>{{ data.categoryName }}</td>
+          <td [style.color]="data.priority === '1' && 'orange'" style="font-weight: bold;">
+            {{ data.priority === '1' ? '推荐' : '普通' }}
+          </td>
+          <td>{{ data.createTime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ data.updateTime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>
+            <a
+              nz-popconfirm
+              [nzTitle]="'确定要' + (data.priority === '1' ? '取荐' : '推荐') + '此课程吗？'"
+              (nzOnConfirm)="updateCourseStatus(data.id, data.priority)"
+            >
+              {{ data.priority === '1' ? '取荐' : '推荐' }}
+            </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              nz-popconfirm
+              nzTitle="确定删除此课程吗？"
+              nzOkType="danger"
+              (nzOnConfirm)="deleteCourse(data.id)"
+            >
+              删除
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

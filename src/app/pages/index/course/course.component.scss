@@ -1,0 +1,103 @@
+@import 'variables';
+@import 'mixins';
+
+.container {
+  padding: 15px 12%;
+  .header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    .tab {
+      width: 66%;
+    }
+    .upload_course {
+      position: relative;
+      top: -6px;
+      @include oval-button($index-operate-color);
+    }
+  }
+  .course_list {
+    position: relative;
+    padding: 0 6px;
+    .course {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    .spin {
+      position: absolute;
+      top: 50px;
+      left: 0;
+      right: 0;
+      width: 16px;
+      margin: auto;
+    }
+    .empty_tips {
+      width: 100%;
+      margin-top: 150px;
+    }
+  }
+}
+
+.upload_poster {
+  position: relative;
+  width: 276px;
+  height: 140px;
+  margin-bottom: 8px;
+  .poster {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+  }
+  .delete_poster {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    position: absolute;
+    text-align: center;
+    line-height: 140px;
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    background: rgba(0, 0, 0, 0.6);
+    opacity: 0;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+    &:hover {
+      font-size: 42px;
+      opacity: 1;
+    }
+    .delete_poster_icon {
+      user-select: none;
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep {
+  .ant-upload {
+    display: flex;
+    align-items: center;
+    .upload_file_tip {
+      width: 200px;
+      margin-left: 10px;
+      user-select: none;
+      color: #aeaeae;
+      font-size: 13px;
+      @include single-line-ellipsis;
+    }
+    .upload_icon {
+      font-size: 42px;
+      color: #999999;
+    }
+  }
+  .ant-upload.ant-upload-select-picture-card {
+    width: 276px;
+    height: 140px;
+  }
+  .ant-progress-bg,
+  .ant-progress-success-bg {
+    background: $index-operate-color;
+  }
+}

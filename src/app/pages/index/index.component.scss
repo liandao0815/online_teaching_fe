@@ -1,0 +1,92 @@
+@import 'mixins';
+@import 'variables';
+
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.container {
+  position: relative;
+  top: 70px;
+  width: 100%;
+  height: calc(100vh - 70px);
+  @include scrollbar-style;
+  overflow-y: auto;
+  .router_outlet {
+    position: relative;
+    min-height: calc(100vh - 128px);
+  }
+  .footer {
+    margin: 12px 0 24px;
+    text-align: center;
+  }
+}
+
+::ng-deep {
+  .ant-input {
+    @include scrollbar-style;
+  }
+  .ant-tabs-ink-bar,
+  .ant-switch-checked,
+  .ant-slider-track,
+  .ant-slider:hover .ant-slider-track {
+    background-color: $index-operate-color;
+  }
+  .ant-tabs-nav .ant-tabs-tab-active,
+  .ant-tabs-nav .ant-tabs-tab-active:hover,
+  .ant-tabs-nav .ant-tabs-tab:hover,
+  .ant-modal-confirm-info .ant-modal-confirm-body > .anticon {
+    color: $index-operate-color;
+  }
+  .ant-btn:focus,
+  .ant-btn:hover {
+    color: $index-operate-color;
+    border-color: $index-operate-color;
+  }
+  .ant-tabs.ant-tabs-card .ant-tabs-card-bar .ant-tabs-tab-active {
+    color: #777777;
+    font-weight: bold;
+  }
+  .ant-input:focus,
+  .ant-input:hover,
+  .ant-select-open .ant-select-selection,
+  .ant-select-selection:hover,
+  .ant-select-selection:focus {
+    box-shadow: 0 0 2px $index-operate-color;
+    border-color: $index-operate-color;
+  }
+  .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled),
+  .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open),
+  .ant-slider-handle {
+    border-color: $index-operate-color;
+  }
+  .ant-btn-primary:not([disabled]),
+  .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled),
+  .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover,
+  .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus {
+    background: $index-operate-color;
+    border-color: $index-operate-color;
+  }
+  .ant-btn-primary:hover:not([disabled]),
+  .ant-btn-primary:focus:not([disabled]) {
+    color: #ffffff;
+  }
+  .ant-dropdown-menu-item:hover {
+    background-color: rgb(245, 231, 207);
+  }
+  .ant-btn-group .ant-btn-primary:first-child:not(:last-child) {
+    border-right-color: $index-operate-color;
+  }
+  .ant-switch:focus {
+    box-shadow: none;
+  }
+  .ant-select-dropdown-menu {
+    @include scrollbar-style;
+  }
+  ::selection {
+    background: $index-operate-color !important;
+  }
+}

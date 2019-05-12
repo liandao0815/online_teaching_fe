@@ -1,0 +1,9 @@
+<div class="header">
+  <app-user-center-header></app-user-center-header>
+</div>
+<div class="container" #targetContainer>
+  <div class="router_outlet">
+    <router-outlet></router-outlet>
+  </div>
+  <nz-back-top [nzTarget]="targetContainer"></nz-back-top>
+</div>

@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="edit_live_box">
+    <div class="title">{{ title }}</div>
+    <div class="live_form">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzFor="live_title" nzRequired>直播间标题</nz-form-label>
+        <nz-form-control>
+          <input
+            id="live_title"
+            nz-input
+            [(ngModel)]="liveRoom.title"
+            placeholder="输入直播间标题"
+            style="width: 276px;"
+            [disabled]="userInfo.role !== roleType.teacher"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzFor="live_banner" nzRequired>直播间公告</nz-form-label>
+        <nz-form-control>
+          <textarea
+            id="live_banner"
+            rows="3"
+            nz-input
+            [(ngModel)]="liveRoom.banner"
+            placeholder="输入直播间公告"
+            style="resize: none; width: 276px;"
+            [disabled]="userInfo.role !== roleType.teacher"
+          ></textarea>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>直播间封面</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <nz-upload
+            *ngIf="!posterFile && !currentPoster; else uploadPosterTpl"
+            [nzBeforeUpload]="posterBeforeUpload"
+            nzAccept="image/*"
+            nzListType="picture-card"
+            [nzDisabled]="userInfo.role !== roleType.teacher"
+          >
+            <i class="upload_icon" nz-icon nzType="plus"></i>
+          </nz-upload>
+          <ng-template #uploadPosterTpl>
+            <div class="upload_poster">
+              <div class="delete_poster">
+                <i
+                  class="delete_poster_icon"
+                  nz-icon
+                  type="close"
+                  theme="outline"
+                  (click)="handleDeletePoster()"
+                ></i>
+              </div>
+              <img [src]="posterLocalUrl" class="poster" />
+            </div>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label class="button_label" [nzSpan]="7"></nz-form-label>
+        <nz-form-control>
+          <nz-button-group>
+            <button
+              nz-button
+              class="live_form_button"
+              nzType="primary"
+              [disabled]="userInfo.role !== roleType.teacher || !checkLiveRoomFormStatus()"
+              (click)="handleOperateLiveRoom()"
+            >
+              提交
+            </button>
+            <button
+              nz-button
+              class="live_form_button"
+              (click)="resetLiveForm()"
+              [disabled]="userInfo.role !== roleType.teacher"
+            >
+              重置
+            </button>
+          </nz-button-group>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+</div>

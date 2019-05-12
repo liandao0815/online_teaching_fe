@@ -1,0 +1,10 @@
+<li class="item" (click)="handleClickItem(itemInfo.id)">
+  <div class="item_poster" [style.background-image]="'url(' + itemInfo.poster + ')'"></div>
+  <div class="item_title">{{ itemInfo.title || itemInfo.name }}</div>
+  <div class="item_info">
+    <span><i nz-icon type="user" theme="outline"></i>&nbsp;{{ itemInfo.author }}</span>
+    <span *ngIf="itemInfo.categoryName">
+      <i nz-icon type="appstore" theme="outline"></i>&nbsp;{{ itemInfo.categoryName }}
+    </span>
+  </div>
+</li>

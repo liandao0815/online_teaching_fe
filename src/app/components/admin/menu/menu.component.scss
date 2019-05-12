@@ -1,0 +1,19 @@
+@import 'variables';
+
+.menu_list {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  .copyright {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 30px;
+    user-select: none;
+  }
+  .ant-menu-item {
+    user-select: none;
+  }
+}
+

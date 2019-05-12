@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-top: 80px;
+  font-family: STKaiti;
+  .title {
+    font-size: 26px;
+    margin: 8px 0;
+  }
+  .content {
+    font-size: 20px;
+    line-height: 2;
+    .explain_list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+  }
+}

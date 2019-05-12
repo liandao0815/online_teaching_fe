@@ -1,0 +1,98 @@
+@import 'variables';
+@import 'mixins';
+
+.container {
+  position: relative;
+  padding: 24px 25%;
+  .title {
+    padding-left: 12px;
+    font: bold 25px/2 STkaiti;
+    color: #555555;
+    border-bottom: 1px solid #dddddd;
+  }
+  .note_list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    .spin {
+      position: absolute;
+      top: 150px;
+      left: 0;
+      right: 0;
+      width: 40px;
+      margin: auto;
+    }
+  }
+  .write_note_btn {
+    position: fixed;
+    right: 100px;
+    bottom: 100px;
+  }
+}
+
+.write_note_header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  .note_category {
+    margin-left: 20px;
+    width: 100%;
+  }
+  .note_type_switch {
+    margin-left: 20px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    color: #aaaaaa;
+  }
+  &::ng-deep {
+    .ant-input:focus,
+    .ant-input:hover,
+    .ant-input:not(.ant-input-disabled) {
+      border-color: #cccccc;
+      box-shadow: none;
+    }
+  }
+}
+
+::ng-deep {
+  .ql-toolbar.ql-snow {
+    border-radius: 4px 4px 0 0;
+    border: 1px solid #dddddd;
+  }
+  .ql-container.ql-snow {
+    height: 300px;
+    border-radius: 0 0 4px 4px;
+    @include scrollbar-style;
+  }
+  .ql-editor {
+    @include scrollbar-style;
+    color: $note-font-color;
+    padding: 14px;
+    line-height: 1.5;
+    > p {
+      font-size: 15px;
+    }
+    > h1,
+    > h2 {
+      color: $note-font-color;
+    }
+    > pre.ql-syntax {
+      border-radius: 4px;
+      color: #555555 !important;
+      background: #f2f2f2 !important;
+    }
+    &.ql-blank::before {
+      color: #bbbbbb;
+      font-style: normal;
+      content: attr(data-placeholder);
+      font-size: 15px;
+      left: 15px;
+      pointer-events: none;
+      position: absolute;
+      right: 15px;
+    }
+  }
+}

@@ -1,0 +1,58 @@
+<nav class="nav">
+  <div class="logo">个人中心</div>
+  <ul class="meun">
+    <li routerLink="/"><i nz-icon type="home" theme="outline"></i>&nbsp;主页</li>
+    <li><nz-divider nzType="vertical"></nz-divider></li>
+    <li
+      *ngFor="let menu of menuConfig"
+      [class.active]="menu.url === currentUrl"
+      (click)="handleClickMenu(menu.url)"
+    >
+      {{ menu.name }}
+    </li>
+    <li><nz-divider nzType="vertical"></nz-divider></li>
+    <li (click)="toggleModalStatus()">修改密码</li>
+    <li (click)="logout()">退出登录</li>
+  </ul>
+</nav>
+<nz-modal
+  [(nzVisible)]="modifyPswModalStatus"
+  nzTitle="修改密码"
+  nzOkText="保存"
+  nzOkType="primary"
+  nzClosable="false"
+  [nzOkDisabled]="form.invalid"
+  (nzOnCancel)="toggleModalStatus()"
+  (nzOnOk)="handleUpdatePassword()"
+>
+  <form nz-form #form="ngForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired nzFor="old_password">原密码</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input
+          id="old_password"
+          nz-input
+          type="password"
+          [(ngModel)]="passwordForm.oldPassword"
+          name="prevPassword"
+          placeholder="请输入原密码"
+          required
+        />
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7" nzRequired nzFor="new_password">新密码</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <input
+          id="new_password"
+          nz-input
+          [(ngModel)]="passwordForm.newPassword"
+          name="newPassword"
+          type="password"
+          placeholder="请输入新密码"
+          required
+        />
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>

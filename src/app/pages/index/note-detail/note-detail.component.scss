@@ -1,0 +1,124 @@
+@import 'variables';
+
+.container {
+  margin: 0 22%;
+  padding: 30px;
+  .header {
+    padding: 0 0 16px;
+    border-bottom: 1px solid #cccccc;
+  }
+  .note {
+    padding: 16px 0;
+    .note_header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 16px;
+      color: #777777;
+      .info {
+        display: flex;
+        flex-direction: column;
+        .desc {
+          font-size: 13px;
+          color: #999999;
+        }
+      }
+      .icon {
+        font-size: 18px;
+        cursor: pointer;
+        &:active {
+          opacity: 0.7;
+        }
+      }
+      .active {
+        color: $index-operate-color;
+      }
+    }
+    .note_title {
+      padding: 20px 0 12px;
+      font-size: 20px;
+      line-height: 1.7;
+      border-bottom: 1px solid #e6e6e6;
+    }
+    .note_content {
+      font-size: 15px;
+      text-align: justify;
+    }
+    .note_comment {
+      margin-top: 100px;
+      padding: 24px 24px 16px;
+      border-radius: 6px;
+      box-shadow: 0 0 6px 0 rgba(7, 17, 27, 0.12);
+      .comment_title {
+        padding-bottom: 6px;
+        text-align: center;
+        font-size: 16px;
+      }
+      .comment_form {
+        width: 70%;
+        padding: 16px 0;
+        margin: 0 auto;
+      }
+      .commnet_tips {
+        margin-top: 20px;
+        padding: 12px 0;
+        text-align: center;
+        color: #888888;
+        font-size: 13px;
+      }
+    }
+    ::ng-deep {
+      .ant-comment {
+        border-bottom: 1px solid #e6e6e6;
+        &:last-child {
+          border-bottom: 0;
+        }
+      }
+      .ant-comment-content-author {
+        height: 24px;
+      }
+      .ant-comment-content-author-name,
+      .ant-comment-content-author-time {
+        font-size: 13px;
+      }
+      .ant-comment-content-detail {
+        line-height: 1.8;
+        font-size: 14px;
+        text-align: justify;
+        > p {
+          margin-bottom: 0;
+        }
+      }
+      .ant-comment-avatar {
+        margin: 0;
+      }
+    }
+  }
+  .skeleton {
+    padding: 16px 16px 16px 0;
+    ::ng-deep {
+      .ant-skeleton-paragraph {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .ql-editor {
+    color: $note-font-color;
+    > p {
+      font-size: 15px;
+    }
+    > h1,
+    > h2 {
+      color: $note-font-color;
+    }
+    > pre.ql-syntax {
+      border-radius: 4px;
+      color: #555555 !important;
+      background: #f2f2f2 !important;
+    }
+  }
+}

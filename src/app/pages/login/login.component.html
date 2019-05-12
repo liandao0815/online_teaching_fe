@@ -1,0 +1,66 @@
+<div class="container">
+  <div class="login_title">校园网上教学系统</div>
+  <nz-form-item class="login_role">
+    <nz-form-control>
+      <nz-radio-group [(ngModel)]="userRole" name="role" nzButtonStyle="solid">
+        <label nz-radio-button nzValue="STUDENT" class="role_item">学生</label>
+        <label nz-radio-button nzValue="TEACHER" class="role_item">教师</label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+  <form nz-form [formGroup]="loginForm" class="login_form" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixUser">
+          <input
+            type="text"
+            nz-input
+            autofocus
+            formControlName="account"
+            placeholder="请输入用户账号"
+          />
+        </nz-input-group>
+        <nz-form-explain *ngIf="loginForm.get('account').dirty && loginForm.get('account').errors">
+          用户账号不能为空
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixLock" [nzSuffix]="pswVisibleTemplate">
+          <input
+            [type]="passwordVisible ? 'text' : 'password'"
+            nz-input
+            formControlName="password"
+            placeholder="请输入用户密码"
+          />
+        </nz-input-group>
+        <nz-form-explain *ngIf="loginForm.get('password').dirty && loginForm.get('password').errors">
+          用户密码不能为空
+        </nz-form-explain>
+        <ng-template #pswVisibleTemplate>
+          <span style="cursor: pointer;">
+            <i
+              nz-icon
+              [nzType]="passwordVisible ? 'eye' : 'eye-invisible'"
+              (click)="passwordVisible = !passwordVisible"
+            ></i>
+          </span>
+        </ng-template>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button class="login_button" [nzType]="'primary'" [disabled]="loginForm.invalid">
+          登录
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+  <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+  <div class="tips">
+    <i nz-icon type="bulb" theme="outline" style="color: orange;"></i>
+    温馨提示：初始密码为123456
+  </div>
+</div>

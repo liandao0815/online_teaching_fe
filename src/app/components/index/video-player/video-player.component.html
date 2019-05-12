@@ -1,0 +1,92 @@
+<div class="container" #videoBox id="videoBox" (keydown)="handleVideoBoxKeydown($event)" tabIndex="1">
+  <video #video class="video video-js" poster="assets/images/video-poster.jpg">
+    <source [src]="videoSrc" type="rtmp/flv" />
+  </video>
+  <div class="video_control" #videoControl>
+    <canvas #barrageCanvas class="barrage"></canvas>
+    <div class="toolbar_box">
+      <div class="toolbar">
+        <div class="operate">
+          <!-- 播放或者暂停视频icon -->
+          <span
+            class="iconfont"
+            *ngIf="!playing; else playIconTpl"
+            (click)="togglePlayingStatus()"
+            nz-tooltip
+            nzTitle="播放"
+          >
+            &#xe61c;
+          </span>
+          <ng-template #playIconTpl>
+            <span class="iconfont" nz-tooltip nzTitle="暂停" (click)="togglePlayingStatus()">
+              &#xe61d;
+            </span>
+          </ng-template>
+          <!-- 重载视频icon -->
+          <span class="iconfont" nz-tooltip nzTitle="刷新" (click)="reloadVideo()">&#xe606;</span>
+          <!-- 视频音量调节icon -->
+          <span
+            class="iconfont volume"
+            *ngIf="volume !== 0; else muteIconTpl"
+            (click)="toggleVolumeStatus()"
+            nz-tooltip
+            [nzTitle]="'音量' + volume"
+          >
+            &#xe62c;
+          </span>
+          <ng-template #muteIconTpl>
+            <span class="iconfont volume" nz-tooltip nzTitle="静音" (click)="toggleVolumeStatus()">
+              &#xe61e;
+            </span>
+          </ng-template>
+          <span class="volume_slider">
+            <nz-slider [(ngModel)]="volume" (ngModelChange)="setPlayerVolume($event)"></nz-slider>
+          </span>
+        </div>
+        <div class="barrage_form">
+          <input
+            type="text"
+            nz-input
+            placeholder="发送弹幕"
+            class="input"
+            [(ngModel)]="barrageValue"
+            (mouseenter)="$event.target.focus()"
+            (keyup)="$event.keyCode === 13 && this.barrageValue.trim() && handleSubmitBarrage()"
+          />
+          <button
+            nz-button
+            nzType="primary"
+            (click)="handleSubmitBarrage()"
+            [disabled]="!barrageValue.trim()"
+          >
+            发送
+          </button>
+          <nz-switch
+            [ngModel]="barrageStatus"
+            nzCheckedChildren="弹幕"
+            nzUnCheckedChildren="弹幕"
+            (ngModelChange)="handleBarrageSliderChange($event)"
+            class="switch"
+          ></nz-switch>
+        </div>
+        <div class="fullscreen">
+          <span
+            *ngIf="isFullscreen; else fullscreenIconTpl"
+            class="iconfont"
+            (click)="toggleFullscreen(videoBox)"
+          >
+            &#xe671;
+          </span>
+          <ng-template #fullscreenIconTpl>
+            <span class="iconfont" (click)="toggleFullscreen(videoBox)" nz-tooltip nzTitle="进入全屏">
+              &#xe61f;
+            </span>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tips" *ngIf="living !== '1'">
+    <div class="content">主播正在路上，马上回来~</div>
+  </div>
+</div>

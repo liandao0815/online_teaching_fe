@@ -1,0 +1,54 @@
+<nav class="container">
+  <div class="logo">网上教学系统</div>
+  <ul class="menu">
+    <li
+      *ngFor="let menu of menuConfig"
+      (click)="handleClickMenu(menu.url)"
+      [class.active]="menu.url === currentUrl"
+    >
+      {{ menu.name }}
+    </li>
+  </ul>
+  <div class="search">
+    <app-search></app-search>
+  </div>
+  <ul class="info">
+    <li class="launch">
+      <span (click)="handleClickLaunch()">
+        <i nz-icon type="video-camera" theme="outline"></i>&nbsp;开播
+      </span>
+    </li>
+    <li class="user">
+      <nz-dropdown nzPlacement="bottomCenter">
+        <span class="username" nz-dropdown>
+          {{ userInfo.username }}&nbsp;<i nz-icon type="caret-down" theme="outline"></i>
+        </span>
+        <ul nz-menu>
+          <li nz-menu-item routerLink="/user" class="user_center_menu">
+            个人中心
+          </li>
+          <li nz-menu-item (click)="logout()">退出登录</li>
+        </ul>
+      </nz-dropdown>
+    </li>
+  </ul>
+</nav>
+<nz-modal
+  [(nzVisible)]="launchLiveModalStatus"
+  nzTitle=""
+  [nzFooter]="null"
+  nzWidth="560px"
+  (nzOnCancel)="toggleModalStatus()"
+>
+  <div *ngIf="liveRoom; else noExistLiveRoomTpl" style="text-align: center;">
+    <p>您已经开通直播间，可以使用第三方推流工具（如obs）进行推流直播</p>
+    <p>直播流地址为：{{ rtmpUrlPrefix }}:1935/live/{{ liveRoom.id }}?account=xxx&password=xxx</p>
+    <p>如需修改直播间信息，请<a (click)="gotoEditLivePage()">点击此处</a>前往修改</p>
+    <p>如需进入我的直播间，请<a (click)="gotoMyLiveRoomPage()">点击此处</a>前往直播间</p>
+  </div>
+  <ng-template #noExistLiveRoomTpl>
+    <div style="text-align: center;">
+      您还没有开通直播间，是否立即<a (click)="gotoEditLivePage()">申请开播</a>
+    </div>
+  </ng-template>
+</nz-modal>

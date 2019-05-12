@@ -1,0 +1,71 @@
+<app-admin-title titleName="笔记管理"></app-admin-title>
+<div class="container">
+  <div class="filter">
+    <span class="filter_title">查询笔记：</span>
+    <form class="filter_form">
+      <input
+        class="item_gap form_item"
+        [(ngModel)]="noteQueryId"
+        nz-input
+        name="id"
+        placeholder="笔记ID"
+        type="number"
+      />
+      <input
+        class="item_gap form_item"
+        [(ngModel)]="noteTitle"
+        nz-input
+        name="title"
+        placeholder="笔记标题"
+      />
+      <button nz-button nzType="primary" (click)="searchNoteData(1)">
+        <i nz-icon type="search"></i>查询
+      </button>
+    </form>
+  </div>
+  <div class="list">
+    <div class="table_title">笔记列表</div>
+    <nz-table
+      #basicTable
+      [nzFrontPagination]="false"
+      [nzData]="noteTableInfo.data"
+      [nzLoading]="noteTableInfo.loading"
+      [nzTotal]="noteTableInfo.total"
+      [(nzPageIndex)]="noteTableInfo.pageNum"
+      [(nzPageSize)]="noteTableInfo.pageSize"
+      (nzPageIndexChange)="searchNoteData()"
+    >
+      <thead>
+        <tr>
+          <th>笔记ID</th>
+          <th nzWidth="200px">笔记标题</th>
+          <th>上传用户</th>
+          <th>分类名称</th>
+          <th>创建时间</th>
+          <th>更新时间</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.id }}</td>
+          <td>{{ data.title }}</td>
+          <td>{{ data.author }}</td>
+          <td>{{ data.categoryName }}</td>
+          <td>{{ data.createTime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ data.updateTime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>
+            <a
+              nz-popconfirm
+              nzTitle="确定删除此笔记吗？"
+              nzOkType="danger"
+              (nzOnConfirm)="deleteNote(data.id)"
+            >
+              删除
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

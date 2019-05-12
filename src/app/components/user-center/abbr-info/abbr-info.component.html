@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="header">
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        个人中心
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        {{ abbrTitle }}
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </div>
+  <ul class="list">
+    <li class="item" *ngFor="let item of abbrData; trackBy: trackByAbbrInfo">
+      <div class="item_info">
+        <span>{{ item.createTime | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        <nz-tag nzColor="volcano">{{ item.categoryName }}</nz-tag>
+      </div>
+      <div class="item_content" (click)="handleGotoItem(item.id)">
+        {{ item.title || item.name }}
+      </div>
+    </li>
+    <nz-empty class="empty" nzNotFoundContent="" *ngIf="!abbrData.length"></nz-empty>
+  </ul>
+</div>

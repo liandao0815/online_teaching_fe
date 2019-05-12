@@ -1,0 +1,95 @@
+<div class="container">
+  <div class="header">
+    <nz-breadcrumb>
+      <nz-breadcrumb-item>
+        <a routerLink="/home"><i nz-icon type="home"></i></a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        <a routerLink="/solution">问答</a>
+      </nz-breadcrumb-item>
+      <nz-breadcrumb-item>
+        问答详情
+      </nz-breadcrumb-item>
+    </nz-breadcrumb>
+  </div>
+  <div *ngIf="problemDetail">
+    <div class="question">
+      <h2 class="question_title">{{ problemDetail.title }}</h2>
+      <div class="question_content">{{ problemDetail.content }}</div>
+      <div class="question_info">
+        <span>
+          <i nz-icon type="user" theme="outline"></i>&nbsp; {{ problemDetail.author }} &nbsp;●&nbsp;
+          {{ problemDetail.createTime | timesToNow }} &nbsp;●&nbsp; {{ problemDetail.categoryName }}
+        </span>
+        <span>
+          <nz-tag nzColor="#ff5500" *ngIf="problemDetail.status === '0'">未解决</nz-tag>
+          <nz-tag nzColor="#87d068" *ngIf="problemDetail.status === '1'">已解决</nz-tag>
+        </span>
+      </div>
+    </div>
+    <div class="reply">
+      <div class="reply_form" *ngIf="problemDetail.status !== '1'">
+        <textarea
+          rows="3"
+          nz-input
+          [(ngModel)]="replyContent"
+          placeholder="回答问题"
+          style="resize: none;"
+          (mouseenter)="$event.target.focus()"
+        ></textarea>
+        <div class="reply">
+          <button
+            nz-button
+            nzType="primary"
+            (click)="handleSubmitReply()"
+          >
+            提交回答
+          </button>
+        </div>
+      </div>
+      <div class="reply_list">
+        <div class="title">回答列表（{{ replyList?.length }}个回答）</div>
+        <ul class="list" *ngIf="replyList?.length; else notReplyTpl">
+          <li class="item" *ngFor="let reply of replyList">
+            <div class="item_info">
+              <span>
+                <i nz-icon type="user" theme="outline"></i>&nbsp; {{ reply.author }} ●
+                {{ reply.createTime | timesToNow }}
+              </span>
+              <span
+                *ngIf="reply.status === '1'; else notReceivedIconTpl"
+                nz-tooltip
+                nzTitle="已采纳"
+                style="font-size: 20px; color: orange;"
+              >
+                <i nz-icon type="check-circle" theme="fill"></i>
+              </span>
+              <ng-template #notReceivedIconTpl>
+                <span
+                  *ngIf="userId === problemDetail.userId && problemDetail.status === '0'"
+                  nz-tooltip
+                  nzTitle="采纳"
+                  style="font-size: 20px; cursor: pointer;"
+                  (click)="handleReceviedReply(reply.id)"
+                >
+                  <i nz-icon type="check-circle" theme="fill"></i>
+                </span>
+              </ng-template>
+            </div>
+            <div class="item_content">
+              {{ reply.content }}
+            </div>
+          </li>
+        </ul>
+        <ng-template #notReplyTpl>
+          <div class="tips">暂无回答，要不抢个首答吧~</div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+  <div class="skeleton" *ngIf="!problemDetail">
+    <nz-skeleton [nzActive]="true"></nz-skeleton>
+    <nz-skeleton [nzActive]="true"></nz-skeleton>
+    <nz-skeleton [nzActive]="true"></nz-skeleton>
+  </div>
+</div>

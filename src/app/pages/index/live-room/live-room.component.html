@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="box" *ngIf="liveRoomDetail">
+    <div class="left">
+      <div class="header">
+        <div class="user">
+          <i nz-icon type="user" theme="outline"></i>&nbsp;主讲教师：{{ liveRoomDetail.author }}
+        </div>
+        <div class="title">{{ liveRoomDetail.title }}</div>
+      </div>
+      <div class="video_container">
+        <app-video-player [videoSrc]="videoSrc" [living]="liveRoomDetail.living"></app-video-player>
+      </div>
+    </div>
+    <div class="right">
+      <app-chat-room [banner]="liveRoomDetail.banner" [living]="liveRoomDetail.living"></app-chat-room>
+    </div>
+  </div>
+</div>

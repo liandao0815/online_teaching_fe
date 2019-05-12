@@ -1,0 +1,15 @@
+<li class="container">
+  <div class="question_info">
+    <span>
+      {{ problem.author }} • {{ problem.createTime | timesToNow }} •
+      <span class="category">{{ problem.categoryName }}</span>
+    </span>
+    <span class="tag">
+      <span class="not_solution_tag" *ngIf="problem.status === '0'">未解决</span>
+      <span class="solution_tag" *ngIf="problem.status === '1'">已解决</span>
+    </span>
+  </div>
+  <div class="question_title" (click)="gotoQuestionDetail(problem.id)">
+    {{ problem.title }}
+  </div>
+</li>

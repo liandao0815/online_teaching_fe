@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="banner">
+    <span class="icon"> <i nz-icon type="notification" theme="outline"></i>&nbsp;公告： </span>
+    {{ banner }}
+  </div>
+  <ul class="chat_list" #chatList>
+    <li *ngFor="let item of chatRecoreds; trackBy: trackByChatRecoreds">
+      <span style="font-weight: bold;">{{ item.name }}：</span>
+      {{ item.value }}
+    </li>
+  </ul>
+  <div class="chat_form">
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixButton">
+      <input
+        [(ngModel)]="chatInputValue"
+        nz-input
+        placeholder="我有话要说"
+        #chatInput
+        spellcheck="false"
+        [disabled]="living !== '1'"
+        (mouseenter)="chatInput.focus()"
+        (keyup)="$event.keyCode === 13 && this.chatInputValue.trim() && submitChatValue()"
+      />
+    </nz-input-group>
+    <ng-template #suffixButton>
+      <button
+        [disabled]="!this.chatInputValue.trim()"
+        nz-button
+        nzType="primary"
+        nzSearch
+        [disabled]="living !== '1'"
+        (click)="submitChatValue()"
+      >
+        发送
+      </button>
+    </ng-template>
+  </div>
+</div>

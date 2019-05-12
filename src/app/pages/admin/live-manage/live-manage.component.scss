@@ -1,0 +1,33 @@
+@import 'mixins';
+
+.container {
+  .filter {
+    @include admin-filter-style;
+  }
+  .list {
+    .table_title {
+      @include table-title-style;
+    }
+  }
+}
+
+.detail_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  > li {
+    display: flex;
+    align-items: flex-start;
+    padding: 16px;
+    line-height: 2;
+    > span:first-child {
+      flex-shrink: 0;
+    }
+    img {
+      width: 300px;
+      height: 180px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+}

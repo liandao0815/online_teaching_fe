@@ -3,7 +3,11 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrlPrefix: 'http://localhost:8080/api/v1',
+  qiniuUrlPrefix: 'http://cdn.liandao.site',
+  webSocketUrlPrefix: 'ws://localhost:8080/api/v1/webSocket',
+  rtmpUrlPrefix: 'rtmp://192.168.43.87'
 };
 
 /*

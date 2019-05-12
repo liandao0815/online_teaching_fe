@@ -1,0 +1,81 @@
+<div class="container">
+  <div class="carousel">
+    <nz-carousel nzAutoPlay>
+      <img class="carousel_image" nz-carousel-content src="assets/images/banner.jpg" alt="公告图" />
+      <img
+        nz-carousel-content
+        class="carousel_image"
+        *ngFor="let banner of homePageData.banner"
+        [src]="banner.poster"
+        [alt]="banner.name"
+        [routerLink]="'/course_detail/' + banner.id"
+      />
+    </nz-carousel>
+  </div>
+  <ng-container>
+    <div class="brief_content">
+      <div class="title">正在直播</div>
+      <ul class="list">
+        <app-brief-item
+          *ngFor="let briefItem of homePageData.liveRoom; trackBy: trackByCouseList"
+          [itemInfo]="briefItem"
+          urlPrefix="/live_room"
+        ></app-brief-item>
+        <div class="empty" *ngIf="!homePageData.liveRoom.length">
+          <nz-empty nzNotFoundContent="暂无在播直播间"></nz-empty>
+        </div>
+      </ul>
+    </div>
+    <div class="brief_content">
+      <div class="title">最新课程</div>
+      <ul class="list">
+        <app-brief-item
+          *ngFor="let briefItem of homePageData.course; trackBy: trackByLiveRoomList"
+          [itemInfo]="briefItem"
+          urlPrefix="/course_detail"
+        ></app-brief-item>
+        <div class="empty" *ngIf="!homePageData.course.length">
+          <nz-empty nzNotFoundContent=""></nz-empty>
+        </div>
+      </ul>
+    </div>
+    <div class="content_box">
+      <h3 class="title">最新笔记</h3>
+      <ul class="list">
+        <li
+          class="item"
+          *ngFor="let note of homePageData.note; trackBy: trackByNoteList"
+          [routerLink]="'/note_detail/' + note.id"
+        >
+          <span>
+            <span style="color: orange">【{{ note.categoryName }}】</span>
+            {{ note.title }}
+          </span>
+          <span>{{ note.createTime | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        </li>
+        <div class="empty" *ngIf="!homePageData.note.length">
+          <nz-empty nzNotFoundContent=""></nz-empty>
+        </div>
+      </ul>
+    </div>
+    <div class="content_box">
+      <h3 class="title">最新问答</h3>
+      <ul class="list">
+        <li
+          class="item"
+          *ngFor="let problem of homePageData.problem; trackBy: trackByNoteList"
+          [routerLink]="'/question_detail/' + problem.id"
+        >
+          <span>
+            <span style="color: orange">【{{ problem.categoryName }}】</span>
+            {{ problem.title }}
+          </span>
+          <span>{{ problem.createTime | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        </li>
+        <div class="empty" *ngIf="!homePageData.problem.length">
+          <nz-empty nzNotFoundContent=""></nz-empty>
+        </div>
+      </ul>
+    </div>
+  </ng-container>
+</div>

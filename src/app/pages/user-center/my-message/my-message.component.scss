@@ -1,0 +1,59 @@
+@import 'mixins';
+@import 'variables';
+
+.container {
+  margin: 30px 0;
+  padding: 16px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px 0 rgba(7, 17, 27, 0.06);
+  border-radius: 6px;
+  .message_title {
+    padding: 0 0 4px 12px ;
+    font: bold 25px/2 STkaiti;
+    color: #555555;
+  }
+  .message_list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      padding: 20px 12px;
+      border-top: 1px solid #dddddd;
+      user-select: none;
+      .title {
+        display: flex;
+        justify-content: space-between;
+        line-height: 3;
+        color: #8a8987;
+      }
+      .content {
+        font-size: 16px;
+        line-height: 2;
+        @include single-line-ellipsis;
+        cursor: pointer;
+        &.read {
+          color: #a9a8a7;
+        }
+        &:hover {
+          color: $list-item-hover-color;
+        }
+        &:active {
+          color: rgba($color: $list-item-hover-color, $alpha: 0.7);
+        }
+      }
+    }
+  }
+  .empty {
+    padding: 30px;
+  }
+}
+
+.message_detail {
+  line-height: 2;
+  text-align: justify;
+}
+

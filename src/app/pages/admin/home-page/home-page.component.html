@@ -1,0 +1,26 @@
+<app-admin-title titleName="网站首页"></app-admin-title>
+<div class="container">
+  <nz-card nzTitle="今日数据" style="margin-bottom: 30px;">
+    <ul class="today_data_list">
+      <li *ngFor="let item of todayData" class="cart_item">
+        <span nz-tooltip [nzTitle]="item.tooltip" class="item_tooltip">
+          {{ item.name }}
+          <i nz-icon type="question-circle" theme="outline"></i>
+        </span>
+        <span class="item_amount">{{ item.amount }}</span>
+      </li>
+    </ul>
+  </nz-card>
+  <nz-card nzTitle="用户活跃趋势" style="margin-bottom: 30px;">
+    <div echarts class="demo-chart" [options]="echarsOption"></div>
+  </nz-card>
+  <nz-card nzTitle="总数据" style="margin-bottom: 10px;">
+    <ul class="total_data_list">
+      <li *ngFor="let item of totalData" class="cart_item" [style.background]="item.color">
+        <span class="item_name">{{ item.name }}</span>
+        <span class="item_amount">{{ item.amount }}</span>
+        <span class="item_tooltip">{{ item.tooltip }}</span>
+      </li>
+    </ul>
+  </nz-card>
+</div>

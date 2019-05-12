@@ -1,0 +1,47 @@
+@import 'mixins';
+@import 'variables';
+
+.container {
+  width: 100%;
+  padding: 0 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  border-bottom: 1px solid #dfdfdf;
+  user-select: none;
+  .note_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #b2bac2;
+    padding: 20px 0;
+    .note_operate {
+      > span {
+        margin-right: 12px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .icon {
+        font-size: 18px;
+        &:active {
+          opacity: 0.7;
+        }
+      }
+      .active {
+        color: $index-operate-color;
+      }
+    }
+  }
+  .note_title {
+    padding-bottom: 20px;
+    font-size: 17px;
+    font-weight: bold;
+    color: #777777;
+    cursor: pointer;
+    @include single-line-ellipsis;
+    &:hover {
+      color: $list-item-hover-color;
+      text-decoration: underline;
+    }
+  }
+}

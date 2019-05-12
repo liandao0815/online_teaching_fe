@@ -1,0 +1,57 @@
+@import 'mixins';
+@import 'variables';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 100%;
+  padding: 16px 0;
+  border-bottom: 1px solid #dfdfdf;
+  user-select: none;
+  .question_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #b2bac2;
+    margin-bottom: 8px;
+    .category {
+      @extend %tag_style;
+      background-color: rgb(255, 244, 226);
+      color: rgb(247, 218, 71);
+    }
+    .tag {
+      .not_solution_tag {
+        @extend %tag_style;
+        background-color: rgb(255, 232, 232);
+        color: rgb(238, 112, 109);
+      }
+      .solution_tag {
+        @extend %tag_style;
+        background-color: rgb(236, 255, 232);
+        color: rgb(120, 238, 109);
+      }
+    }
+  }
+  .question_title {
+    font-size: 17px;
+    font-weight: bold;
+    color: #777777;
+    cursor: pointer;
+    @include single-line-ellipsis;
+    &:hover {
+      color: $list-item-hover-color;
+      text-decoration: underline;
+    }
+  }
+}
+
+%tag_style {
+  font-size: 12px;
+  line-height: 16px;
+  margin-left: 5px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  border: 0;
+  cursor: pointer;
+}

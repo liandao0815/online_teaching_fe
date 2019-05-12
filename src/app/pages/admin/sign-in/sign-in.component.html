@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="sign_in_title">校园网上教学系统后台管理</div>
+  <form nz-form [formGroup]="signInForm" class="sign_in_form" (ngSubmit)="submitForm()">
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixUser">
+          <input type="text" nz-input formControlName="account" placeholder="管理员账号" autofocus />
+        </nz-input-group>
+        <nz-form-explain *ngIf="signInForm.get('account').dirty && signInForm.get('account').errors">
+          管理员账号不能为空
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <nz-input-group [nzPrefix]="prefixLock">
+          <input type="password" nz-input formControlName="password" placeholder="管理员密码" />
+        </nz-input-group>
+        <nz-form-explain
+          *ngIf="signInForm.get('password').dirty && signInForm.get('password').errors"
+        >
+          管理员密码不能为空
+        </nz-form-explain>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button class="sign_in_button" [nzType]="'primary'" [disabled]="signInForm.invalid">
+          登录
+        </button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+  <ng-template #prefixUser><i nz-icon type="user"></i></ng-template>
+  <ng-template #prefixLock><i nz-icon type="lock"></i></ng-template>
+</div>

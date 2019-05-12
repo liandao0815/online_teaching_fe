@@ -1,0 +1,38 @@
+<li class="container">
+  <div class="note_info">
+    <span>
+      {{ noteWithCollect.author }} ✦ {{ noteWithCollect.createTime | timesToNow }} ✦
+      {{ noteWithCollect.categoryName }}
+    </span>
+    <div class="note_operate">
+      <span>
+        <i
+          *ngIf="!noteWithCollect.collectId; else noteCollectIconTpl"
+          class="icon"
+          nz-icon
+          type="star"
+          theme="fill"
+          nz-tooltip
+          nzTitle="收藏"
+          (click)="requestCollectNote(noteWithCollect.id)"
+        ></i>
+      </span>
+      <ng-template #noteCollectIconTpl>
+        <span>
+          <i
+            class="active icon"
+            nz-icon
+            type="star"
+            theme="fill"
+            nz-tooltip
+            nzTitle="取消收藏"
+            (click)="cancelCollectNote(noteWithCollect.collectId)"
+          ></i>
+        </span>
+      </ng-template>
+    </div>
+  </div>
+  <div class="note_title" (click)="gotoNoteDetail(noteWithCollect.id)">
+    {{ noteWithCollect.title }}
+  </div>
+</li>

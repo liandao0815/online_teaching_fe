@@ -1,0 +1,62 @@
+@import 'variables';
+
+.container {
+  width: 422px;
+  padding: 20px 30px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 6px;
+  box-shadow: 0 0px 8px 0 rgba(18, 37, 56, 0.178);
+  .login_title {
+    text-align: center;
+    padding: 16px 0;
+    font: bold 26px STKaiti;
+  }
+  .login_role,
+  .login_form,
+  .login_button {
+    width: 360px;
+  }
+  .role_item {
+    width: 180px;
+    text-align: center;
+  }
+  .tips {
+    font-size: 13px;
+    text-align: center;
+    color: #777777;
+  }
+}
+
+::ng-deep {
+  .ant-btn-primary:not([disabled]),
+  .ant-radio-group-solid .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled),
+  .ant-radio-group-solid
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover,
+  .ant-radio-group-solid
+    .ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):focus {
+    background: $index-operate-color;
+    border-color: $index-operate-color;
+  }
+  .ant-btn-primary:hover:not([disabled]),
+  .ant-btn-primary:focus:not([disabled]) {
+    color: #ffffff;
+  }
+  .ant-radio-button-wrapper:hover {
+    color: $index-operate-color;
+  }
+  .ant-radio-button-wrapper-checked,
+  .ant-radio-button-wrapper-checked:hover {
+    box-shadow: -1px 0 0 0 $index-operate-color;
+  }
+  .ant-input-affix-wrapper .ant-input:focus,
+  .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled) {
+    border-color: $index-operate-color;
+    box-shadow: none;
+  }
+  ::selection {
+    background: $index-operate-color !important;
+  }
+}

@@ -1,0 +1,30 @@
+@import 'variables';
+@import 'mixins';
+
+.container {
+  padding: 30px 25%;
+  .solution_header {
+    .submit_question_btn {
+      @include oval-button($index-operate-color);
+    }
+  }
+  .solution_list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    position: relative;
+    .spin {
+      position: absolute;
+      top: 150px;
+      left: 0;
+      right: 0;
+      width: 40px;
+      margin: auto;
+    }
+  }
+  ::ng-deep {
+    .ant-tabs-tab {
+      font-size: 17px;
+    }
+  }
+}

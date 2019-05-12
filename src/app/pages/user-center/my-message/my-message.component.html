@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="message_title">消息列表</div>
+  <ul class="message_list">
+    <li class="item" *ngFor="let message of (messageList$ | async); trackBy: trackByMessageList">
+      <div class="title">
+        <nz-tag nzColor="gold"> <i nz-icon type="notification" theme="fill"></i>&nbsp;系统消息： </nz-tag>
+        <span>
+          <span *ngIf="message.status === '1'; else messageStatusTpl" style="color: green;">已读</span>
+          <ng-template #messageStatusTpl>
+            <span style="color: red;">未读</span>
+          </ng-template>
+          &nbsp;●&nbsp;
+          <span>{{ message.createTime | date: 'yyyy-MM-dd HH:mm:ss' }}</span>
+        </span>
+      </div>
+      <div
+        class="content"
+        [class.read]="message.status === '1'"
+        [innerHTML]="message.content"
+        (click)="$event.preventDefault(); toggleModalSatus(message.id)"
+      ></div>
+    </li>
+  </ul>
+  <nz-empty
+    nzNotFoundContent="暂无任何消息"
+    *ngIf="!(messageList$ | async).length"
+    class="empty"
+  ></nz-empty>
+</div>
+<nz-modal
+  [(nzVisible)]="messageDetailModal"
+  nzTitle="消息详情"
+  nzOkType="default"
+  nzOkText="提交"
+  [nzFooter]="null"
+  (nzOnCancel)="toggleModalSatus()"
+>
+  <p class="message_detail" [innerHTML]="currentMessageDetail?.content"></p>
+</nz-modal>

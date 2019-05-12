@@ -1,0 +1,55 @@
+@import 'mixins';
+@import 'variables';
+
+.container {
+  width: 76%;
+  height: 90%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: auto;
+  .box {
+    width: 100%;
+    height: 100%;
+    min-height: 420px;
+    display: flex;
+    padding: 16px;
+    border: 1px solid #dfdfdf;
+    border-radius: 4px;
+    box-shadow: 0 0 6px 0 rgba(7, 17, 27, 0.18);
+    .left {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      min-width: 500px;
+      .header {
+        height: 60px;
+        flex-shrink: 0;
+        .user {
+          line-height: 1.5;
+          color: #999999;
+          font-size: 13px;
+          margin-bottom: 4px;
+        }
+        .title {
+          color: #444444;
+          font-size: 20px;
+          @include single-line-ellipsis;
+        }
+      }
+      .video_container {
+        width: 100%;
+        height: 100%;
+        min-height: 300px;
+      }
+    }
+    .right {
+      flex-shrink: 0;
+      width: 280px;
+      height: 100%;
+      margin-left: 17px;
+    }
+  }
+}

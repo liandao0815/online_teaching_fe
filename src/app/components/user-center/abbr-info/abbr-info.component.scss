@@ -1,0 +1,47 @@
+@import 'variables';
+
+.container {
+  margin: 30px 0;
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0 2px 8px 0 rgba(7, 17, 27, 0.06);
+  border-radius: 6px;
+  .header {
+    padding-bottom: 12px;
+  }
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    .item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 100px;
+      padding: 10px 0;
+      border-top: 1px solid #dfdfdf;
+      .item_info {
+        display: flex;
+        justify-content: space-between;
+        color: #afafaf;
+      }
+      .item_content {
+        font-size: 17px;
+        font-weight: bold;
+        color: #777777;
+        user-select: none;
+        cursor: pointer;
+        &:hover {
+          color: $list-item-hover-color;
+          text-decoration: underline;
+        }
+        &:active {
+          color: rgba($color: $list-item-hover-color, $alpha: 0.7);
+        }
+      }
+    }
+  }
+  .empty {
+    padding: 30px;
+  }
+}

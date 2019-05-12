@@ -1,0 +1,72 @@
+.container {
+  padding: 2px;
+  .today_data_list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    .cart_item {
+      width: 120px;
+      height: 70px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      .item_tooltip {
+        font-size: 16px;
+        font-weight: bold;
+      }
+      .item_amount {
+        font-size: 26px;
+        font-weight: bold;
+      }
+    }
+  }
+  .total_data_list {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    .cart_item {
+      display: flex;
+      flex-direction: column;
+      width: 22%;
+      padding: 12px;
+      color: #ffffff;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        opacity: 0.9;
+      }
+      .item_name {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 20px;
+      }
+      .item_amount {
+        font-size: 26px;
+        font-weight: 500;
+        margin: 8px 0;
+      }
+      .item_tooltip {
+        font-size: 12px;
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .ant-card {
+    border: 0;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px 0 rgba(7, 17, 27, 0.1);
+  }
+  .ant-card-head {
+    font-weight: bold;
+    color: #ffffff;
+    background: rgba(46, 50, 63, 0.8);
+    border-radius: 6px 6px 0 0;
+  }
+}

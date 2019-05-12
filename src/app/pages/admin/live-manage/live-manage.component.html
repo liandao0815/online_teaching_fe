@@ -1,0 +1,144 @@
+<app-admin-title titleName="直播管理"></app-admin-title>
+<div class="container">
+  <div class="filter">
+    <span class="filter_title">查询直播间：</span>
+    <form class="filter_form">
+      <input
+        class="item_gap form_item"
+        [(ngModel)]="liveRoomQueryId"
+        nz-input
+        type="number"
+        name="id"
+        placeholder="直播间ID"
+      />
+      <button nz-button nzType="primary" (click)="searchLiveData(1)">
+        <i nz-icon type="search"></i>查询
+      </button>
+    </form>
+  </div>
+  <div class="list">
+    <div class="table_title">直播间列表</div>
+    <nz-tabset>
+      <nz-tab
+        *ngFor="let item of liveRoomStatus"
+        (nzClick)="handleTabClick(item.value)"
+        [nzTitle]="item.name"
+      >
+      </nz-tab>
+    </nz-tabset>
+    <nz-table
+      #basicTable
+      [nzFrontPagination]="false"
+      [nzData]="liveRoomTableInfo.data"
+      [nzLoading]="liveRoomTableInfo.loading"
+      [nzTotal]="liveRoomTableInfo.total"
+      [(nzPageIndex)]="liveRoomTableInfo.pageNum"
+      [(nzPageSize)]="liveRoomTableInfo.pageSize"
+      (nzPageIndexChange)="searchLiveData()"
+    >
+      <thead>
+        <tr>
+          <th>直播间ID</th>
+          <th>主播名称</th>
+          <th>直播间状态</th>
+          <th>最近直播时间</th>
+          <th>创建时间</th>
+          <th>更新时间</th>
+          <th nzWidth="150px">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.id }}</td>
+          <td>{{ data.author }}</td>
+          <td [style.color]="getLiveRoomStatusColor(data.status)" style="font-weight: bold;">
+            {{ getLiveRoomStatusName(data.status) }}
+          </td>
+          <td>{{ (data.liveTime | date: 'yyyy-MM-dd HH:mm:ss') || '/' }}</td>
+          <td>{{ data.createTime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>{{ data.updateTime | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+          <td>
+            <a (click)="detailModalStatus = true; getLiveRoomDetail(data.id)">详情</a>
+            <nz-divider *ngIf="data.status !== '2'" nzType="vertical"></nz-divider>
+            <ng-container [ngSwitch]="data.status">
+              <a *ngSwitchCase="'0'" (click)="currentVerifyId = data.id; verifyModalStatus = true">审核</a>
+              <a
+                *ngSwitchCase="'1'"
+                nz-popconfirm
+                nzTitle="确定冻结此直播间吗？"
+                (nzOnConfirm)="changeLiveRoomStatus(data.id, '3')"
+              >
+                冻结
+              </a>
+              <a
+                *ngSwitchCase="'3'"
+                nz-popconfirm
+                nzTitle="确定解冻此直播间吗？"
+                (nzOnConfirm)="changeLiveRoomStatus(data.id, '1')"
+              >
+                解冻
+              </a>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+<nz-modal
+  [(nzVisible)]="verifyModalStatus"
+  nzTitle="审核直播间"
+  nzOkText="保存"
+  nzClosable="false"
+  [nzOkDisabled]="categoryForm.invalid"
+  (nzOnCancel)="verifyModalStatus = false"
+  (nzOnOk)="changeLiveRoomStatus(currentVerifyId, verifyLiveRoomForm.type === 0 ? '1' : '2')"
+>
+  <form nz-form #categoryForm="ngForm">
+    <nz-form-item>
+      <nz-form-label [nzSpan]="7">审核结果</nz-form-label>
+      <nz-form-control [nzSpan]="12">
+        <nz-radio-group [(ngModel)]="verifyLiveRoomForm.type" name="type">
+          <label nz-radio [nzValue]="0">审核通过</label>
+          <label nz-radio [nzValue]="1">审核不通过</label>
+        </nz-radio-group>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item *ngIf="verifyLiveRoomForm.type === 1">
+      <nz-form-label [nzSpan]="7">不通过原因</nz-form-label>
+      <nz-form-control [nzSpan]="14">
+        <textarea
+          rows="3"
+          nz-input
+          [(ngModel)]="verifyLiveRoomForm.reason"
+          placeholder="请输入审核不通过原因"
+          name="reason"
+          style="resize: none;"
+        ></textarea>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</nz-modal>
+<nz-modal
+  [(nzVisible)]="detailModalStatus"
+  nzTitle="直播间详情"
+  [nzFooter]="null"
+  (nzOnCancel)="detailModalStatus = false"
+>
+  <ul class="detail_list">
+    <li>
+      <span>直播间标题：</span>
+      <span>{{ liveRoomDetail?.title }}</span>
+    </li>
+    <li>
+      <span>直播间公告：</span>
+      <span>{{ liveRoomDetail?.banner }}</span>
+    </li>
+    <li>
+      <span>直播间海报：</span>
+      <span>
+        <img [src]="liveRoomDetail?.poster" />
+      </span>
+    </li>
+  </ul>
+</nz-modal>

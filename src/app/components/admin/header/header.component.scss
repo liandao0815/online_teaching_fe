@@ -1,0 +1,44 @@
+@import 'variables';
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  .logo {
+    color: $logo-font-color;
+    padding: 10px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-family: $logo-font-family;
+    user-select: none;
+    .cn {
+      font-size: 32px;
+    }
+    .en {
+      font-size: 20px;
+    }
+  }
+  .nav {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    color: #d8d8d8;
+    font-size: 15px;
+    .operate {
+      margin-right: 40px;
+      cursor: pointer;
+      outline: none;
+    }
+    .info {
+      margin-right: 6px;
+    }
+    .avatar {
+      margin-right: 20px;
+    }
+  }
+}

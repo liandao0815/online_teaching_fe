@@ -1,0 +1,12 @@
+@import 'mixins';
+
+.container {
+  .filter {
+    @include admin-filter-style;
+  }
+  .list {
+    .table_title {
+      @include table-title-style;
+    }
+  }
+}

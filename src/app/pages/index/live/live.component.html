@@ -1,0 +1,20 @@
+<div
+  class="container"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="250"
+  [infiniteScrollContainer]="'#indexContainer'"
+  [fromRoot]="true"
+  (scrolled)="getLiveRoomList()"
+>
+  <div class="title">在线直播</div>
+  <ul class="live_list">
+    <app-brief-item
+      *ngFor="let briefItem of liveRoomList; trackBy: trackByLiveRoomList"
+      [itemInfo]="briefItem"
+      urlPrefix="/live_room"
+    ></app-brief-item>
+  </ul>
+  <nz-empty nzNotFoundContent="暂无在播直播间" class="empty" *ngIf="!liveRoomList.length"></nz-empty>
+  <nz-spin *ngIf="loading" nzSimple class="spin" [nzSize]="'large'"></nz-spin>
+</div>

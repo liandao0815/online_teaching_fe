@@ -1,0 +1,29 @@
+.container {
+  padding: 20px 12%;
+  position: relative;
+  .title {
+    padding-left: 18px;
+    font: bold 25px/2 STkaiti;
+    color: #555555;
+  }
+  .live_list {
+    margin: 0;
+    padding: 0 6px;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .empty {
+    margin-top: 130px;
+    width: 100%;
+    text-align: center;
+  }
+  .spin {
+    position: absolute;
+    top: 250px;
+    left: 0;
+    right: 0;
+    width: 12px;
+    margin: auto;
+  }
+}

@@ -1,0 +1,75 @@
+<div
+  class="container"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="250"
+  [infiniteScrollContainer]="'#indexContainer'"
+  [fromRoot]="true"
+  (scrolled)="getProblemList()"
+>
+  <div class="solution_header">
+    <nz-tabset [nzTabBarExtraContent]="nzTabBarExtraContent">
+      <nz-tab nzTitle="问题列表"></nz-tab>
+    </nz-tabset>
+    <ng-template #nzTabBarExtraContent>
+      <div class="submit_question_btn" (click)="toggleModalStatus()">
+        ＋&nbsp;提问题
+      </div>
+    </ng-template>
+  </div>
+  <div class="solution_list">
+    <app-question-item
+      *ngFor="let problem of problemList; trackBy: trackByProblemList"
+      [problem]="problem"
+    ></app-question-item>
+    <nz-spin *ngIf="loading" nzSimple class="spin" [nzSize]="'large'"></nz-spin>
+  </div>
+</div>
+<nz-modal
+  nzWidth="650px"
+  [(nzVisible)]="submitProblemModalStatus"
+  nzTitle="提问题"
+  [nzClosable]="false"
+  nzOkText="提交"
+  [nzMaskClosable]="false"
+  (nzOnCancel)="toggleModalStatus()"
+  [nzOkDisabled]="!checkProblemFormStatus()"
+  (nzOnOk)="handleSubmitProblemForm()"
+>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired>问题分类</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <nz-select
+        [(ngModel)]="problemForm.categoryId"
+        nzAllowClear
+        nzPlaceHolder="请选择问题分类"
+        style="width: 100%;"
+      >
+        <nz-option
+          *ngFor="let category of (categoryList$ | async)"
+          [nzValue]="category.id"
+          [nzLabel]="category.name"
+        ></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="problemTitle">问题名称</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <input [(ngModel)]="problemForm.title" nz-input id="problemTitle" placeholder="请输入问题名称" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="problemContent">问题描述</nz-form-label>
+    <nz-form-control [nzSm]="14" [nzXs]="24">
+      <textarea
+        id="problemContent"
+        rows="6"
+        nz-input
+        [(ngModel)]="problemForm.content"
+        placeholder="请输入问题描述"
+        style="resize: none;"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+</nz-modal>

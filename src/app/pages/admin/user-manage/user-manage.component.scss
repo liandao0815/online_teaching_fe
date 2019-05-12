@@ -1,0 +1,40 @@
+@import 'mixins';
+
+.container {
+  .operate {
+    @include admin-operate-style;
+  }
+  .filter {
+    @include admin-filter-style;
+  }
+  .list {
+    margin-top: 8px;
+    .table_title {
+      @include table-title-style;
+    }
+  }
+}
+
+::ng-deep {
+  .ant-modal-body {
+    padding: 12px 24px;
+  }
+  .ant-upload {
+    display: flex;
+    align-items: center;
+    .upload_file_tip {
+      width: 200px;
+      margin-left: 10px;
+      user-select: none;
+      @include single-line-ellipsis;
+    }
+  }
+  .import_modal {
+    .download_link {
+      padding: 8px 0 16px;
+    }
+    .file_area {
+      margin-bottom: 20px;
+    }
+  }
+}

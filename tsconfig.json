@@ -11,12 +11,18 @@
     "experimentalDecorators": true,
     "importHelpers": true,
     "target": "es5",
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "lib": [
-      "es2018",
-      "dom"
-    ]
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
+    "paths": {
+      "class/*": ["./src/app/class/*"],
+      "components/*": ["./src/app/components/*"],
+      "config/*": ["./src/app/config/*"],
+      "guard/*": ["./src/app/guard/*"],
+      "pages/*": ["./src/app/pages/*"],
+      "services/*": ["./src/app/services/*"],
+      "utils/*": ["./src/app/utils/*"],
+      "environments/*": ["./src/environments/*"],
+      "pipes/*": ["./src/app/pipes/*"]
+    }
   }
 }

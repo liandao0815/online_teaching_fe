@@ -1,0 +1,58 @@
+<div
+  class="container"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="250"
+  [infiniteScrollContainer]="'#indexContainer'"
+  [fromRoot]="true"
+  (scrolled)="getnNteListWithCollect()"
+>
+  <div class="title">笔记列表</div>
+  <ul class="note_list">
+    <app-note-item
+      *ngFor="let noteWithCollect of noteListWithCollect; trackBy: trackByNoteLitstWithCollect"
+      [noteWithCollect]="noteWithCollect"
+      (collectChange)="handleCollectChange(noteWithCollect.id, $event)"
+    ></app-note-item>
+    <nz-spin *ngIf="loading" nzSimple class="spin" [nzSize]="'large'"></nz-spin>
+  </ul>
+  <div class="write_note_btn" nz-tooltip nzTitle="写笔记" (click)="toggleModalStatus()">
+    <button nz-button nzSize="large" nzShape="circle">
+      <i nz-icon type="edit" theme="fill"></i>
+    </button>
+  </div>
+</div>
+<nz-modal
+  [(nzVisible)]="writeNoteModalStatus"
+  nzTitle="写笔记"
+  [nzClosable]="false"
+  nzOkText="提交"
+  nzWidth="706px"
+  [nzMaskClosable]="false"
+  (nzOnCancel)="toggleModalStatus()"
+  [nzOkDisabled]="!checkNoteFormStatus()"
+  (nzOnOk)="handleSubmitNoteForm()"
+>
+  <div class="write_note_header">
+    <input [(ngModel)]="noteForm.title" nz-input placeholder="输入标题" />
+    <nz-select
+      [(ngModel)]="noteForm.categoryId"
+      nzAllowClear
+      nzPlaceHolder="选择分类"
+      class="note_category"
+    >
+      <nz-option
+        *ngFor="let category of (categoryList$ | async)"
+        [nzValue]="category.id"
+        [nzLabel]="category.name"
+      ></nz-option>
+    </nz-select>
+    <span class="note_type_switch">是否公开：<nz-switch [(ngModel)]="noteTye"></nz-switch></span>
+  </div>
+  <quill-editor
+    [(ngModel)]="noteForm.content"
+    [modules]="quillToolbar"
+    placeholder="输入正文"
+    spellcheck="false"
+  ></quill-editor>
+</nz-modal>

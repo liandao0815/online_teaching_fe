@@ -1,0 +1,12 @@
+@import 'mixins';
+
+.container {
+  .operate {
+    @include admin-operate-style;
+  }
+  .list {
+    .table_title {
+      @include table-title-style;
+    }
+  }
+}

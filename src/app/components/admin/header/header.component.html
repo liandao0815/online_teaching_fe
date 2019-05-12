@@ -1,0 +1,18 @@
+<header class="admin-header">
+  <div class="logo">
+    <span class="cn">后台管理</span>
+    <span class="en">Online_Teaching</span>
+  </div>
+  <ul class="nav">
+    <li class="operate" routerLink="/admin">
+      <i nz-icon type="home" theme="outline"></i>&nbsp;&nbsp;首页
+    </li>
+    <li class="operate" (click)="logout()">
+      <i nz-icon type="logout" theme="outline"></i>&nbsp;&nbsp;退出
+    </li>
+    <li class="info">{{ getPeriod() }}好，管理员（{{ userInfo.username }}）</li>
+    <li class="avatar">
+      <nz-avatar [nzSize]="42" nzIcon="user" [nzSrc]="userInfo.avatar"></nz-avatar>
+    </li>
+  </ul>
+</header>

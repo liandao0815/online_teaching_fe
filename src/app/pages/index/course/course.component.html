@@ -1,0 +1,139 @@
+<div
+  class="container"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="250"
+  [infiniteScrollContainer]="'#indexContainer'"
+  [fromRoot]="true"
+  (scrolled)="getCourseList()"
+>
+  <div class="header">
+    <div class="tab">
+      <nz-tabset>
+        <nz-tab nzTitle="全部" (nzClick)="handleClickTab(0)"></nz-tab>
+        <nz-tab
+          *ngFor="let category of (categoryList$ | async)"
+          [nzTitle]="category.name"
+          (nzClick)="handleClickTab(category.id)"
+        ></nz-tab>
+      </nz-tabset>
+    </div>
+    <div *ngIf="userInfo.role === roleType.teacher" class="upload_course" (click)="toggleModalStatus()">
+      <i nz-icon type="upload" theme="outline"></i>&nbsp;上传课程
+    </div>
+  </div>
+  <div class="course_list">
+    <div class="course" *ngIf="courseList.length">
+      <app-brief-item
+        *ngFor="let briefItem of courseList; trackBy: trackByCouseList"
+        [itemInfo]="briefItem"
+        urlPrefix="/course_detail"
+      ></app-brief-item>
+    </div>
+    <nz-empty *ngIf="!courseList.length" class="empty_tips" nzNotFoundContent="暂无该分类课程"></nz-empty>
+    <nz-spin *ngIf="loading" nzSimple class="spin" [nzSize]="'large'"></nz-spin>
+  </div>
+</div>
+<!-- 上传课程模态框 -->
+<nz-modal
+  [nzStyle]="{ top: '60px' }"
+  [(nzVisible)]="uploadCourseModalStatus"
+  nzTitle="上传课程"
+  [nzClosable]="false"
+  nzOkText="上传"
+  [nzMaskClosable]="false"
+  (nzOnCancel)="toggleModalStatus()"
+  (nzOnOk)="handleUploadCourse()"
+  [nzOkLoading]="uploadLoading"
+  [nzCancelDisabled]="uploadLoading"
+  [nzOkDisabled]="!checkCourseFormStatus()"
+>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>课程视频</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-upload [nzBeforeUpload]="courseBeforeUpload" nzAccept="video/*">
+        <button nz-button>
+          <i nz-icon type="upload"></i>
+          <span *ngIf="!courseFile; else uploadWordTpl">选择课程视频</span>
+          <ng-template #uploadWordTpl>
+            <span>点击重新选择</span>
+          </ng-template>
+        </button>
+        <span *ngIf="courseFile; else uploadTipTpl" class="upload_file_tip">
+          <i nz-icon type="paper-clip" theme="outline"></i>&nbsp;{{ courseFile?.name }}
+        </span>
+        <ng-template #uploadTipTpl>
+          <span class="upload_file_tip">
+            暂未选择课程视频
+          </span>
+        </ng-template>
+      </nz-upload>
+      <nz-progress *ngIf="progressBarStatus" [nzPercent]="progressBarPercent" nzSize="small"></nz-progress>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>课程分类</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-select
+        [(ngModel)]="courseForm.categoryId"
+        nzAllowClear
+        nzPlaceHolder="请选择课程分类"
+        style="width: 100%;"
+        [nzShowArrow]="false"
+      >
+        <nz-option
+          *ngFor="let category of (categoryList$ | async)"
+          [nzValue]="category.id"
+          [nzLabel]="category.name"
+        >
+        </nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired nzFor="course_title">课程标题</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input id="course_title" nz-input [(ngModel)]="courseForm.name" placeholder="请输入课程标题" />
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired nzFor="course_content">课程介绍</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <textarea
+        id="course_content"
+        rows="3"
+        nz-input
+        [(ngModel)]="courseForm.introduction"
+        placeholder="请输入课程介绍"
+        style="resize: none;"
+      ></textarea>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSpan]="7" nzRequired>课程封面</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <nz-upload
+        *ngIf="!posterFile; else uploadPosterTpl"
+        [nzBeforeUpload]="posterBeforeUpload"
+        nzAccept="image/*"
+        nzListType="picture-card"
+      >
+        <i class="upload_icon" nz-icon nzType="plus"></i>
+      </nz-upload>
+      <ng-template #uploadPosterTpl>
+        <div class="upload_poster">
+          <div class="delete_poster">
+            <i
+              class="delete_poster_icon"
+              nz-icon
+              type="close"
+              theme="outline"
+              (click)="posterFile = null"
+            ></i>
+          </div>
+          <img [src]="posterLocalUrl" class="poster" />
+        </div>
+      </ng-template>
+    </nz-form-control>
+  </nz-form-item>
+</nz-modal>

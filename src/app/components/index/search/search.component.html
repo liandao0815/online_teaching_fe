@@ -1,0 +1,41 @@
+<ng-container>
+  <nz-select
+    style="width: 240px;"
+    nzPlaceHolder="搜索直播间、课程、笔记"
+    nzAllowClear
+    nzShowSearch
+    [nzServerSearch]="true"
+    [nzSuffixIcon]="suffixIconSearch"
+    (nzOnSearch)="handleSearchChange($event)"
+    [ngModel]="selectValue"
+    (ngModelChange)="handleSearchModelChange($event)"
+    nzNotFoundContent="暂无数据"
+  >
+    <nz-option-group nzLabel="直播间" *ngIf="searchData.liveRoom">
+      <nz-option
+        [nzValue]="'liveRoom' + searchData.liveRoom.id"
+        [nzLabel]="searchData.liveRoom.id + ' - ' + searchData.liveRoom.title"
+      ></nz-option>
+    </nz-option-group>
+    <nz-option-group nzLabel="课程" *ngIf="searchData.course.length">
+      <nz-option
+        *ngFor="let course of searchData.course"
+        [nzValue]="'course' + course.id"
+        [nzLabel]="course.name"
+      ></nz-option>
+    </nz-option-group>
+    <nz-option-group nzLabel="笔记" *ngIf="searchData.note.length">
+      <nz-option
+        *ngFor="let note of searchData.note"
+        [nzValue]="'note' + note.id"
+        [nzLabel]="note.title"
+      ></nz-option>
+    </nz-option-group>
+    <nz-option *ngIf="searchLoading" nzDisabled nzCustomContent>
+      <i nz-icon type="loading" style="margin-right: 8px;"></i> 正在加载数据...
+    </nz-option>
+  </nz-select>
+  <ng-template #suffixIconSearch>
+    <i nz-icon type="search"></i>
+  </ng-template>
+</ng-container>

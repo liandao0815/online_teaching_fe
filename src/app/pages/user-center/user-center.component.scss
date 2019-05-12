@@ -1,0 +1,61 @@
+@import 'mixins';
+@import 'variables';
+
+.header {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+}
+.container {
+  position: relative;
+  top: 70px;
+  padding: 0 20%;
+  overflow-y: auto;
+  height: calc(100vh - 70px);
+  background: #f4f5f5;
+  @include scrollbar-style;
+}
+
+::ng-deep {
+  .ant-divider,
+  .ant-divider-vertical {
+    width: 4px;
+  }
+  .ant-modal-confirm-info .ant-modal-confirm-body > .anticon {
+    color: $index-operate-color;
+  }
+  .ant-btn:focus,
+  .ant-btn:hover {
+    color: $index-operate-color;
+    border-color: $index-operate-color;
+  }
+  .ant-btn-primary:not([disabled]) {
+    background: $index-operate-color;
+    border-color: $index-operate-color;
+  }
+  .ant-btn-primary:hover:not([disabled]),
+  .ant-btn-primary:focus:not([disabled]) {
+    color: #ffffff;
+  }
+  .ant-breadcrumb {
+    font-size: 16px;
+  }
+  .ant-input:focus,
+  .ant-input:hover,
+  .ant-select-open .ant-select-selection,
+  .ant-select-selection:hover,
+  .ant-select-selection:focus {
+    box-shadow: 0 0 2px $index-operate-color;
+    border-color: $index-operate-color;
+  }
+  .ant-input-affix-wrapper:hover .ant-input:not(.ant-input-disabled),
+  .ant-slider:hover .ant-slider-handle:not(.ant-tooltip-open),
+  .ant-slider-handle {
+    border-color: $index-operate-color;
+  }
+  ::selection {
+    background: $index-operate-color !important;
+  }
+}
