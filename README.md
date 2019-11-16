@@ -1,27 +1,56 @@
-# OnlineTeachingFE
+## 在线教学系统 （OnlineTeachingFE）
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.1.
+### 技术栈
 
-## Development server
+**Angular + Typescript + Rxjs + Ng-Zorro**
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### 部分实现效果
 
-## Code scaffolding
+**消息通知**
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![消息通知](./screenshot/消息页.png)
 
-## Build
+**直播模块**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+![申请直播](./screenshot/开通直播间.png)
 
-## Running unit tests
+![直播间](./screenshot/直播间.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-## Running end-to-end tests
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+**课程模块**
 
-## Further help
+![课程列表](./screenshot/课程列表.png)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+![上传课程](./screenshot/上传课程.png)
+
+![学习课程](./screenshot/学习课程.png)
+
+**笔记模块**
+
+![笔记列表](./screenshot/笔记列表.png)
+
+![上传笔记](./screenshot/上传笔记.png)
+
+![笔记详情](./screenshot/笔记详情.png)
+
+**问题模块**
+
+![问题列表](./screenshot/问题列表.png)
+
+![提交问题](./screenshot/提交问题.png)
+
+![问题详情](./screenshot/问题详情.png)
+
+**后台管理**
+
+![用户管理](./screenshot/用户管理.png)
+
+![直播管理](./screenshot/直播管理.png)
+
+![课程管理](./screenshot/课程管理.png)
+
+![笔记管理](./screenshot/笔记管理.png)
+
+![分类管理](./screenshot/分类管理.png)
+
